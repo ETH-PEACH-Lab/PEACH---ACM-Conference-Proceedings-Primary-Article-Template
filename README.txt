@@ -1,3 +1,11 @@
+# PEACH Lab Paper Writing ACM Template
+
+This template can be viewed here on [Overleaf](https://www.overleaf.com/read/vjwbcrpnfrnd#71299f).
+It is the up-to-date template, with April's fav packages and ways to organize the file structures.
+
+
+
+
 This package provides a class for typesetting publications of the
 Association for Computing Machinery.
 
