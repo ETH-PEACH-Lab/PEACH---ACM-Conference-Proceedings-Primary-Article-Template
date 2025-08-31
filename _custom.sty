@@ -1,0 +1,63 @@
+% paper-specific macros
+\usepackage{_macros}
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{soul}  % For highlighting
+
+%% custom colours
+\definecolor{LIGHTYELLOW}{HTML}{FCF3CF}
+\definecolor{LIGHTGREEN}{HTML}{D5F5E3}
+\definecolor{LIGHTBLUE}{HTML}{D6EAF8}
+\definecolor{LIGHTPURPLE}{HTML}{E8DAEF}
+
+%% author comments
+% optional parameter for colour selection
+\newcommand{\aw}[2][PURPLE]{\authorcomment{#1}{April}{#2}}
+
+%% outline
+% title
+\newcommand{\outlinetitle}[1]{
+\medbreak
+\noindent
+{{\fontfamily{cmss}\selectfont \sethlcolor{LIGHTBLUE}\hl{#1}}}
+\medbreak
+}
+
+% logic
+\newcommand{\outlinelogic}[1]{
+\medbreak
+\noindent
+{{\fontfamily{cmss}\selectfont \sethlcolor{LIGHTGREEN}\hl{LOGIC}: {\small #1}}}
+\medbreak
+}
+
+% hide logic
+\newcommand{\hideoutlinelogic}{
+    \renewcommand{\outlinelogic}[1]{}
+}
+
+% hide logic and detailed outline
+\newcommand{\hideoutlinedetails}{
+    \renewcommand{\outline}[1]{}
+    \renewcommand{\outlinelogic}[1]{}
+}
+
+%% general placeholder
+\newcommand{\tmp}[1]{\hl{#1}\xspace}
+
+%% specialized placeholder
+\newcommand{\tmpcite}{\tmp{[cite]}}
+
+%% image placeholder
+% #1 = optional, * or empty; #2 = label; #3 = caption
+% ref usage: \ref{fig:#2}, where #2 should be replaced by the actual parameter
+% usage 1: \tmpImage[*]{label}{caption} for figures spanning 2 columns
+% usage 2: \tmpImage{label}{caption} for figures spanning 1 column
+\newcommand{\tmpImage}[3][]{
+\begin{figure#1}[th]
+    \centering
+    \includegraphics[width = 1\linewidth]{example-image-duck}
+    \caption{Placeholder for #3}
+    \label{fig:#2}
+\end{figure#1}}

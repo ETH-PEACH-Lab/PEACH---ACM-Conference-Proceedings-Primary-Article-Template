@@ -1,0 +1,313 @@
+%
+% Various Macros and Standard Setup
+% ================================
+% DO NOT EDIT YOUR LOCAL COPY OF THIS FILE (unless you plan to test and
+% then propose fixes or new macros for the Exii template)
+% All paper-specific macros should be in your main.tex file.
+% ================================
+
+% to control list indentation for itemize, enumerate, etc.
+\usepackage{enumitem}
+% global settings to push bullets and list numbers to the left (saves room and looks better)
+\setlist[itemize]{leftmargin=*}
+% also set number style to more compact 1. 2. 3.
+\setlist[enumerate]{leftmargin=*,label=\arabic*.}
+
+% to allow line break hyphens in hyphenated words
+\usepackage[shortcuts]{extdash}
+% e.g. allow hyphenation anywhere in the word including the hyphen: multi\-/disciplinary
+%      prevent hyphenation at the hyphen: multi\=/disciplinary
+
+% needed for highlighting
+\usepackage{soul}
+
+% fix spaces after macros
+\usepackage{xspace}
+% note about \xspace: many macros use this to try to intelligently insert a space only when 
+% needed if you write the macro like \ea. But it doesn't always work. If the space disappears 
+% after the macro, just write two closed curly brackets after the macro, like \ea{} 
+
+% the document class (in main) uses the use the dvipsnames option which is 
+% equivalent to: \usepackage[dvipsnames]{xcolor}
+% this adds standard colors names like these: 
+% https://en.wikibooks.org/wiki/LaTeX/Colors#The_68_standard_colors_known_to_dvips
+
+% more easily create commands with optional arguments
+\usepackage{xparse}
+
+% fix equation whitespace above and below
+% \AtBeginDocument{%
+%  \abovedisplayskip=3pt plus 3pt minus 3pt
+%  \abovedisplayshortskip=3pt plus 3pt minus 3pt
+%  \belowdisplayskip=3pt plus 3pt minus 3pt
+%  \belowdisplayshortskip=3pt plus 3pt minus 3pt
+% }
+
+
+
+% Custom Styles and Formatting Helpers 
+% --------------------------------
+
+% paragraph section (adds a italic heading to a paragraph)
+\newcommand{\parsection}[1]{\smallbreak\noindent\textit{#1}---\@\xspace}
+
+% NOTE: after last parsection, add \medbreak if not followed by a new section
+
+% useful whitespace gaps (to visually divide paragraphs from previous subsubsection or parsection)
+% also see this: https://tex.stackexchange.com/questions/41476/lengths-and-when-to-use-them
+% \smallbreak % add some whitespace above (also good place to break and consider space already added)
+% \smallskip % add some whitespace above
+% also med and large variants of the above
+
+% sequeezing space between text and figures/tables
+\newcommand{\textfloatsp}[1]{
+    \setlength{\floatsep}{#1}
+    \setlength{\textfloatsep}{#1}
+    \setlength{\intextsep}{#1}
+    \setlength{\dbltextfloatsep}{#1}
+    \setlength{\dblfloatsep}{#1}
+}
+% usage: to reduce 5pt space, \textfloatsp{-5pt}
+
+% sequeezing space between text and displays/equantions
+\newcommand{\displaysp}[1]{
+    \setlength{\abovedisplayskip}{#1}
+    \setlength{\belowdisplayskip}{#1}
+    \setlength{\abovedisplayshortskip}{#1}
+    \setlength{\belowdisplayshortskip}{#1}
+}
+% usage: to reduce 5pt space, \displaysp{-5pt}
+
+% squeezing space between a figure and its caption 
+\newlength{\cpsp}
+\newcommand{\captionsp}{\vspace{\cpsp}}
+% usage: to reduce 5pt space, 
+% place \setlength{\cpsp}{-5pt} in the beginning of the document
+% then put \captionsp{} between \includegraphics{} and \caption{} 
+
+% inline wordscale icons
+\newcommand{\wsicon}[1]{
+    \noindent \raisebox{-2.5pt}{
+        \setlength{\fboxsep}{0pt} 
+        \setlength{\fboxrule}{0pt}{\includegraphics[height=\baselineskip]{#1}}
+    }
+}
+% usage: \wsicon{path_to_image}
+
+% quoting participant comments
+% \pqt{I like the idea!}{P1} --> "I like the idea!" -P1
+\newcommand{\qt}[1]{\textit{``#1''}}
+\newcommand{\pqt}[2]{\textit{``#1''}{\,}{\small-#2}}
+
+% Common Word and Phrase Shortcuts 
+% --------------------------------
+
+% useful words (use without braces at the end)
+\newcommand{\ie}{i.e.\@\xspace}
+\newcommand{\eg}{e.g.\@\xspace}
+\newcommand{\vs}{vs.\@\xspace}
+\newcommand{\etal}{et~al.\@\xspace}
+
+% smaller fixed width text when referencing code
+\newcommand{\code}[1]{{\small{\texttt{#1}}}}
+
+% \definecolor{yellow}{rgb}{.90,.95,1}
+% \definecolor{red}{rgb}{1,.9,.9}
+% \newcommand{\hlc}[2][yellow]{ {\sethlcolor{#1} \hl{#2}}}
+
+% to signify content or values that need to be filled in
+% NOTE: These remain highlighted in submission form (which is what you want)
+\newcommand{\x}{\hl{X}\@\xspace}
+\newcommand{\xx}{\hl{XXXX}\@\xspace}
+
+% Study Variable Formatting
+% ----------------------------
+
+% scale up the sc font slightly
+%\usepackage{letltxmacro,lipsum,relsize}
+%\LetLtxMacro{\oldscshape}{\scshape}
+%\renewcommand{\scshape}[1]{\oldscshape\relscale{1.2}#1}
+
+% an "experiment factor" (an independent variable)
+\newcommand{\f}[1]{{\textsc{#1}}\@\xspace}
+% usage: \f{block}, \f{width}, etc. 
+% IMPORTANT: Always write in lowercase, not title case!
+% NOTE: need \xspace package to fix spacing issues
+
+% a dependent measure
+\newcommand{\m}[1]{{\textit{#1}}\@\xspace}
+% usage: \m{Time}, \m{Error Rate}, etc. Use title case.
+
+% a "code" when qualitative coding 
+\newcommand{\cd}[1]{\textit{``{#1}''}\@\xspace}
+% usage: \cd{errors}, \cd{work}
+
+% Math and Measurements
+% --------------------------------
+
+% vector variable
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+% degree symbol
+\newcommand{\degree}{\ensuremath{{}^{\circ}}\@\xspace}
+% a nicer cross
+\newcommand{\by}{$\times$\@\xspace}
+% standard way to state size dimensions, like like 45 x 56 cm
+\newcommand{\size}[3]{{#1} {\by} {#2}{#3}}
+
+% Statistics Reporting 
+% --------------------------------
+
+% standard deviation
+\newcommand{\sd}[1]{$SD=#1$}
+\newcommand{\mean}[1]{$M=#1$}
+\newcommand{\iqr}[1]{$IQR=#1$}
+\newcommand{\md}[1]{$MD=#1$}
+
+% p value reporting
+% prefer this less than inequality 
+% (with thresholds of .01, .001, .0001, ...) when p < .01
+%
+% \p{.05} to create (p < .05), usual form with p defaulting to less than
+% \p{.012}{=} to create (p = .012), if you want to give exact value 
+% \p{.05}{>} to create (p > .05), just to say n.s.
+% \p{n.s.}{=} to create (p = n.s.), don't use this version
+\NewDocumentCommand\p{ m g }{%
+    \IfNoValueTF{#2}{% 
+         {$p<#1$}%
+    }{%
+         {$p#2#1$}%
+    }%
+}
+
+% ANOVA
+% #1 between-groups degrees of freedom
+% #2 within-groups degrees of freedom
+% #3 F statistic (rounded off to two decimal places) 
+% #4 significance level with no leading 0 (exact to 3 decimals if more than .01, "less than" symbol if smaller)
+% #5 generalized partial eta squared effect size with no leading 0 to two decimal places
+
+% https://stackoverflow.com/questions/1812214/latex-optional-arguments
+% m means "mandatory argument" and g is "optional braced argument".
+% \newcommand{\anova}[5]{{$F_{#1,#2}=#3$, $p<#4$, $\eta_G^2=#5$}}
+\NewDocumentCommand\anova{ m m m m g }{%
+    \IfNoValueTF{#5}{% 
+         {$F_{#1,#2}=#3$, $p<#4$}%
+    }{%
+         {$F_{#1,#2}=#3$, $p<#4$, $\eta_G^2=#5$}%
+    }%
+}
+
+\newcommand{\anovaex}[5]{{$F_{#1,#2}=#3$, $p=#4$, $\eta_G^2=#5$}}
+\newcommand{\anovans}[3]{{$F_{#1,#2}=#3$, $p>.05$}}
+
+% CHI-Square
+% #1 degrees of freedom 
+% #2 sample size
+% #3 Pearson chi-square value (rounded to two decimal places)
+% #4 significance level with no leading 0 (exact to 3 decimals if more than .01, "less than" symbol if smaller)
+\newcommand{\chisquare}[4]{{$\chi^2(#1,N=#2}=#3$, $p<#4$}
+\newcommand{\chisquareex}[4]{{$\chi^2(#1,N=#2}=#3$, $p=#4$}
+
+
+
+
+
+% Commenting and Other Markup
+% --------------------------------
+\usepackage{xcolor}
+
+\newenvironment{commentwrapper}[1]{\color{#1}}{\color{black}}
+
+\newcommand{\authorcomment}[3]{\begin{commentwrapper}{#1}[#2:~#3]\end{commentwrapper}}
+% usage: \newcommand{\jz}[1]{\authorcomment{PURPLE}{JZ}{#1}}
+
+\newcommand{\simplecomment}[2]{\begin{commentwrapper}{#1}#2\end{commentwrapper}}
+% usage: \newcommand{\todo}[1]{\simplecomment{CYAN}{#1}}
+
+% author comment colours 
+\definecolor{GREEN}{rgb}{0.0,0.6,0.0}
+\definecolor{BLUE}{rgb}{0.0,0.2,0.7}
+\definecolor{GOLD}{rgb}{0.6,0.6,0.0}
+\definecolor{CYAN}{rgb}{0.0,0.5,0.5}
+\definecolor{PURPLE}{rgb}{0.5,0.0,0.5}
+
+% special colours for standard commenting and markup
+\definecolor{RED}{rgb}{0.7,0.0,0.0}
+% \definecolor{LIGHTGRAY}{gray}{0.7}
+\definecolor{GRAY}{gray}{0.5}
+
+% outline comment (non-author specific comments about structure, notes, etc.)
+% \newcommand{\outline}[1]{\simplecomment{LIGHTGRAY}{[#1]}}
+
+\definecolor{LIGHTGRAY}{HTML}{DDDDDD}
+
+\newcommand{\outline}[1]{
+\medbreak
+\noindent
+{\sethlcolor{LIGHTGRAY}\hl{> #1}}
+% {\simplecomment{Maroon}{[#1]}}
+% \simplecomment{LIGHTGRAY}{[#1]}
+\medbreak
+}
+
+% for planning revisions
+\definecolor{GOLD}{HTML}{FFE052}
+\newcommand{\revnote}[1]{
+\medbreak
+\noindent
+{\sethlcolor{GOLD}\hl{> #1}}
+\medbreak
+}
+
+% fixme markup (to flag sections that need work, like rough text or text with missing information)
+\newcommand{\fixme}[1]{\simplecomment{RED}{#1}}
+
+% call this command to just hide the outline
+\newcommand{\hideoutline}{
+    \renewcommand{\outline}[1]{} 
+}
+
+% call this command to hide revision notes
+\newcommand{\hiderevnotes}[0]{
+    \renewcommand{\revnote}[1]{} 
+}
+
+
+% call this command to hide all comments for submission or final version
+\newcommand{\hidecomments}[0]{
+    \hideoutline
+    \hiderevnotes
+    \renewcommand{\authorcomment}[3]{} 
+    \renewcommand{\fixme}[1]{\simplecomment{black}{##1}}
+}
+
+
+% highlight camera-ready revisions
+
+% null command to show no revision highlighting
+\newcommand{\rev}[1]{#1}
+
+% command to show revision highlighting
+% WARNING: the hl command seems to insert break for each blank line, 
+% so make sure you only have one blank line between paragraphs and no
+% blanks after comments. (Anyone know how to fix this?)
+\definecolor{REVISIONRED}{HTML}{DE3163}
+\definecolor{REVISIONGREEN}{HTML}{9FE2BF}
+\definecolor{REVISIONYELLOW}{HTML}{FFBF00}
+\definecolor{REVISIONBLUE}{HTML}{6495ED}
+
+\newcommand{\showrevisions}[1]{
+    \renewcommand{\rev}[1]{{\color{#1}##1}}
+}
+% usage: \showrevisions{REVISIONRED}
+
+%\usepackage[pagebackref,bookmarks]{hyperref}
+% command to reset names for autoref
+% label the referencing object: \label{ref_type:ref_name}, 
+% where ref_type could be fig (for figures), sec (for sections), tab (for tables), ...
+% usage: \autoref{fig:xxx}, \autoref{sec:xxx} 
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
+\renewcommand{\sectionautorefname}{Section}
+\renewcommand{\subsectionautorefname}{Section}
+\renewcommand{\subsubsectionautorefname}{Section}
